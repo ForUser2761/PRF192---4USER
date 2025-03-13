@@ -2,40 +2,39 @@
 #include <ctype.h>
 #include <stdbool.h>
 
-bool isVowel(char ch)
-{
-    // to lower case
-    char lower = tolower(ch);
-    bool result = isalpha(ch) && (lower == 'a' || lower == 'e' || lower == 'i' || lower == 'o' || lower == 'u');
+bool isVowel(char ch) {
+
+    char lower = islower(ch);
+    bool result = isalpha(lower) && (lower == 'a' || lower == 'e' || lower == 'i' || lower == 'o' || lower == 'u');
     return result;
 }
 
-bool isConsonant(char ch)
-{
-    // to lower case
-    char lower = tolower(ch);
-    return isalpha(ch) && !isVowel(ch);
+bool isConsonant(char ch) {
+    char lower = islower(ch);
+    bool result = isalpha(lower) && !isVowel(lower);
 }
 
 int main()
-{
+{   
     char input;
     printf("Enter a character: ");
     scanf("%c", &input);
 
-    if (isalpha(input))
+    if (!isalpha(input)) 
     {
+        printf("This is not alphabet");
+    } else {
         if (isVowel(input))
         {
             printf("This is vowel");
         }
-        else if (isConsonant(input))
+
+        if (isConsonant) 
         {
             printf("This is consonant");
         }
+        
+        
     }
-    else
-    {
-        printf("This is not alphabet !!");
-    }
+    
 }

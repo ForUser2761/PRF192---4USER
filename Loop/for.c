@@ -1,20 +1,11 @@
-// C program to demonstrate infinite
-// loops using for loop
 #include <stdio.h>
 
-// Driver code
-int main ()
+int main()
 {
-int i;
+    int i;
+    for(i = 0; i < 5; i++) {
+        printf("i = %d\n", i);
+    }
 
-// This is an infinite for loop 
-// as the condition expression 
-// is blank
-for ( ; ; )
-{
-	printf("This loop will run forever.\n");
+    return 0;
 }
-
-return 0;
-}
-
