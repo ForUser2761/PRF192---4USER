@@ -53,3 +53,74 @@ bool isConsonant(char ch)
 int isAlphabet(char ch) {
     return ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z'));
 }
+
+
+int fibonacci(int n) {
+    if (n == 0 || n == 1) 
+    {
+        return n;
+    }
+    return fibonacci(n - 1) + fibonacci ( n - 2);
+
+}
+
+
+int factorial(int n)
+{
+    int i = 1;
+    int result = 1;
+    for (i = 1; i <= n; i++)
+    {
+        result *= i;
+    }
+    return result;
+}
+
+
+int isPrime(int number) {
+    int i;
+    for (i = 2; i < number; i++)
+    {
+        if (number % i == 0)
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+
+int tongUoc(int n) {
+    int tong = 0, i = 1;
+
+    for ( i = 1; i <= n; i++)
+    {
+        if (n % i == 0)
+        {
+            tong += i;
+        }
+    }
+    return tong;
+}
+
+
+
+int demSoUoc(int n)
+{
+    int count = 0;
+    int i;
+    for (i = 1; i <= n; i++)
+    {
+        if (n % i == 0)
+        {
+            count++;
+        }
+    }
+    return count;
+}
+
+
+bool isSquareNumber(int number)
+{
+    return sqrt(number) * sqrt(number) == number;
+}
