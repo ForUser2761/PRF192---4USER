@@ -54,17 +54,32 @@ int isAlphabet(char ch) {
     return ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z'));
 }
 
-
+/**
+ * @brief Tính số Fibonacci thứ n.
+ *
+ * Hàm này tính toán số Fibonacci thứ n bằng phương pháp đệ quy.
+ * Dãy Fibonacci bắt đầu với 0 và 1, mỗi số tiếp theo là tổng của hai số trước đó.
+ *
+ * @param n Vị trí của số Fibonacci cần tính (n >= 0).
+ * @return Số Fibonacci thứ n.
+ */
 int fibonacci(int n) {
     if (n == 0 || n == 1) 
     {
         return n;
     }
     return fibonacci(n - 1) + fibonacci ( n - 2);
-
 }
 
-
+/**
+ * @brief Tính giai thừa của một số nguyên.
+ *
+ * Hàm này tính toán giai thừa của số nguyên n (n!), được định nghĩa là
+ * tích của tất cả các số nguyên dương từ 1 đến n.
+ *
+ * @param n Số nguyên không âm cần tính giai thừa.
+ * @return Giai thừa của n.
+ */
 int factorial(int n)
 {
     int i = 1;
@@ -76,7 +91,16 @@ int factorial(int n)
     return result;
 }
 
-
+/**
+ * @brief Kiểm tra xem một số có phải là số nguyên tố không.
+ *
+ * Hàm này xác định liệu số nguyên đầu vào có phải là số nguyên tố hay không.
+ * Số nguyên tố là số tự nhiên lớn hơn 1 và chỉ có đúng hai ước số là 1 và chính nó.
+ *
+ * @param number Số nguyên cần kiểm tra.
+ * @return Trả về 1 (true) nếu số là số nguyên tố.
+ *         Trả về 0 (false) nếu số không phải là số nguyên tố.
+ */
 int isPrime(int number) {
     int i;
     for (i = 2; i < number; i++)
@@ -89,7 +113,15 @@ int isPrime(int number) {
     return 1;
 }
 
-
+/**
+ * @brief Tính tổng các ước số của một số nguyên.
+ *
+ * Hàm này tính tổng tất cả các ước số của số nguyên n đầu vào,
+ * bao gồm cả 1 và chính số đó.
+ *
+ * @param n Số nguyên dương cần tính tổng ước.
+ * @return Tổng các ước số của n.
+ */
 int tongUoc(int n) {
     int tong = 0, i = 1;
 
@@ -103,8 +135,15 @@ int tongUoc(int n) {
     return tong;
 }
 
-
-
+/**
+ * @brief Đếm số lượng ước số của một số nguyên.
+ *
+ * Hàm này đếm tổng số ước số của số nguyên n đầu vào,
+ * bao gồm cả 1 và chính số đó.
+ *
+ * @param n Số nguyên dương cần đếm ước.
+ * @return Số lượng ước số của n.
+ */
 int demSoUoc(int n)
 {
     int count = 0;
@@ -119,7 +158,15 @@ int demSoUoc(int n)
     return count;
 }
 
-
+/**
+ * @brief Kiểm tra xem một số có phải là số chính phương không.
+ *
+ * Hàm này xác định liệu số nguyên đầu vào có phải là số chính phương hay không.
+ * Số chính phương là số tự nhiên có căn bậc hai là một số nguyên.
+ *
+ * @param number Số nguyên cần kiểm tra.
+ * @return true nếu số là số chính phương; false nếu không phải.
+ */
 bool isSquareNumber(int number)
 {
     return sqrt(number) * sqrt(number) == number;
