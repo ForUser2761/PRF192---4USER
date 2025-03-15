@@ -845,12 +845,1620 @@ int findNthLargestInArray(int* array, int size, int n) {
     return result;
 }
 
-// Hàm main để kiểm tra
-int main() {
-    int array[] = {2, 4, 6};
-    int size = sizeof(array) / sizeof(array[0]);
+/**
+ * Đổi vị trí số lẻ lớn nhất và nhỏ nhất trong mảng
+ * 
+ * @param arr Mảng cần xử lý
+ * @param size Kích thước của mảng
+ * @return true nếu đổi thành công, false nếu không có đủ số lẻ
+ */
+bool doiViTriSoLeLonNhatVaNhoNhat(int arr[], int size) {
+    int maxOdd = -1, minOdd = -1;
+    int maxOddIndex = -1, minOddIndex = -1;
     
-    printf("%d\n", lcmOfArray(array, size));
+    // Tìm vị trí số lẻ lớn nhất và nhỏ nhất
+    for (int i = 0; i < size; i++) {
+        if (arr[i] % 2 != 0) { // Nếu là số lẻ
+            if (maxOddIndex == -1 || arr[i] > maxOdd) {
+                maxOdd = arr[i];
+                maxOddIndex = i;
+            }
+            if (minOddIndex == -1 || arr[i] < minOdd) {
+                minOdd = arr[i];
+                minOddIndex = i;
+            }
+        }
+    }
     
-    return 0;
+    // Kiểm tra xem có tìm thấy ít nhất 2 số lẻ không
+    if (maxOddIndex == -1 || minOddIndex == -1 || maxOddIndex == minOddIndex) {
+        return false; // Không có đủ số lẻ để đổi
+    }
+    
+    // Đổi vị trí
+    int temp = arr[maxOddIndex];
+    arr[maxOddIndex] = arr[minOddIndex];
+    arr[minOddIndex] = temp;
+    
+    return true;
+}
+
+/**
+ * Kiểm tra số Armstrong
+ * Số Armstrong là số mà tổng các lũy thừa của các chữ số bằng chính nó
+ * Ví dụ: 153 = 1^3 + 5^3 + 3^3
+ * 
+ * @param num Số cần kiểm tra
+ * @return true nếu là số Armstrong, false nếu không phải
+ */
+bool kiemTraSoArmstrong(int num) {
+    int original = num;
+    int sum = 0;
+    int digits = 0;
+    int temp = num;
+    
+    // Đếm số chữ số
+    while (temp != 0) {
+        digits++;
+        temp /= 10;
+    }
+    
+    // Tính tổng lũy thừa
+    temp = num;
+    while (temp != 0) {
+        int digit = temp % 10;
+        sum += pow(digit, digits);
+        temp /= 10;
+    }
+    
+    return sum == original;
+}
+
+/**
+ * Vẽ hình vuông đặc
+ * 
+ * @param size Kích thước cạnh hình vuông
+ */
+void veHinhVuong(int size) {
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            printf("* ");
+        }
+        printf("\n");
+    }
+}
+
+/**
+ * Vẽ hình vuông rỗng dưới (phần dưới đặc)
+ * 
+ * @param size Kích thước cạnh hình vuông
+ */
+void veHinhVuongRongDuoi(int size) {
+    int half = size / 2;
+    
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            if (i < half) {
+                if (j == 0 || j == size - 1 || i == 0) {
+                    printf("* ");
+                } else {
+                    printf("  ");
+                }
+            } else {
+                printf("* ");
+            }
+        }
+        printf("\n");
+    }
+}
+
+/**
+ * Vẽ hình vuông rỗng trên (phần trên đặc)
+ * 
+ * @param size Kích thước cạnh hình vuông
+ */
+void veHinhVuongRongTren(int size) {
+    int half = size / 2;
+    
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            if (i >= half) {
+                if (j == 0 || j == size - 1 || i == size - 1) {
+                    printf("* ");
+                } else {
+                    printf("  ");
+                }
+            } else {
+                printf("* ");
+            }
+        }
+        printf("\n");
+    }
+}
+
+/**
+ * Vẽ hình vuông rỗng giữa (phần giữa rỗng)
+ * 
+ * @param size Kích thước cạnh hình vuông
+ */
+void veHinhVuongRongGiua(int size) {
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            if (i == 0 || i == size - 1 || j == 0 || j == size - 1) {
+                printf("* ");
+            } else {
+                printf("  ");
+            }
+        }
+        printf("\n");
+    }
+}
+
+/**
+ * Vẽ tam giác ngược 1 (đỉnh ở dưới)
+ * 
+ * @param height Chiều cao tam giác
+ */
+void veTamGiacNguoc1(int height) {
+    for (int i = height; i > 0; i--) {
+        for (int j = 0; j < height - i; j++) {
+            printf("  ");
+        }
+        for (int j = 0; j < 2 * i - 1; j++) {
+            printf("* ");
+        }
+        printf("\n");
+    }
+}
+
+/**
+ * Vẽ tam giác ngược 2 (đỉnh ở trên)
+ * 
+ * @param height Chiều cao tam giác
+ */
+void veTamGiacNguoc2(int height) {
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < i; j++) {
+            printf("  ");
+        }
+        for (int j = 0; j < 2 * (height - i) - 1; j++) {
+            printf("* ");
+        }
+        printf("\n");
+    }
+}
+
+/**
+ * Vẽ tam giác ngược 3 (tam giác vuông ngược)
+ * 
+ * @param height Chiều cao tam giác
+ */
+void veTamGiacNguoc3(int height) {
+    for (int i = height; i > 0; i--) {
+        for (int j = 0; j < i; j++) {
+            printf("* ");
+        }
+        printf("\n");
+    }
+}
+
+/**
+ * Vẽ tam giác cân 1 (đỉnh ở trên)
+ * 
+ * @param height Chiều cao tam giác
+ */
+void veTamGiacCan1(int height) {
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < height - i - 1; j++) {
+            printf("  ");
+        }
+        for (int j = 0; j < 2 * i + 1; j++) {
+            printf("* ");
+        }
+        printf("\n");
+    }
+}
+
+/**
+ * Vẽ tam giác cân 2 (đỉnh ở dưới)
+ * 
+ * @param height Chiều cao tam giác
+ */
+void veTamGiacCan2(int height) {
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < i; j++) {
+            printf("  ");
+        }
+        for (int j = 0; j < 2 * (height - i) - 1; j++) {
+            printf("* ");
+        }
+        printf("\n");
+    }
+}
+
+/**
+ * Vẽ tam giác có số (1)
+ * 
+ * @param height Chiều cao tam giác
+ */
+void veTamGiacCoSo1(int height) {
+    for (int i = 1; i <= height; i++) {
+        for (int j = 1; j <= i; j++) {
+            printf("%d ", j);
+        }
+        printf("\n");
+    }
+}
+
+/**
+ * Vẽ tam giác có số (2)
+ * 
+ * @param height Chiều cao tam giác
+ */
+void veTamGiacCoSo2(int height) {
+    for (int i = 1; i <= height; i++) {
+        for (int j = 1; j <= i; j++) {
+            printf("%d ", i);
+        }
+        printf("\n");
+    }
+}
+
+/**
+ * Vẽ tam giác chữ đối xứng
+ * 
+ * @param height Chiều cao tam giác
+ */
+void veTamGiacChuDoiXung(int height) {
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < height - i - 1; j++) {
+            printf("  ");
+        }
+        
+        // In chữ cái tăng dần
+        for (int j = 0; j <= i; j++) {
+            printf("%c ", 'A' + j);
+        }
+        
+        // In chữ cái giảm dần
+        for (int j = i - 1; j >= 0; j--) {
+            printf("%c ", 'A' + j);
+        }
+        
+        printf("\n");
+    }
+}
+
+/**
+ * Vẽ hình bình hành
+ * 
+ * @param width Chiều rộng hình bình hành
+ * @param height Chiều cao hình bình hành
+ */
+void veHinhBinhHanh(int width, int height) {
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < height - i - 1; j++) {
+            printf("  ");
+        }
+        for (int j = 0; j < width; j++) {
+            printf("* ");
+        }
+        printf("\n");
+    }
+}
+
+/**
+ * Vẽ ngôi nhà đơn giản
+ * 
+ * @param size Kích thước ngôi nhà
+ */
+void veNgoiNha(int size) {
+    // Vẽ mái nhà (tam giác)
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            printf(" ");
+        }
+        for (int j = 0; j < 2 * i + 1; j++) {
+            printf("*");
+        }
+        printf("\n");
+    }
+    
+    // Vẽ thân nhà (hình chữ nhật)
+    for (int i = 0; i < size; i++) {
+        // Vẽ cạnh trái
+        printf("|");
+        
+        // Vẽ phần giữa
+        for (int j = 0; j < 2 * size - 3; j++) {
+            if (i == 0 || i == size - 1) {
+                printf("-"); // Vẽ nền và trần
+            } else if (j == (2 * size - 3) / 2 - 1 && i > size / 2) {
+                printf("|"); // Vẽ cửa
+            } else {
+                printf(" ");
+            }
+        }
+        
+        // Vẽ cạnh phải
+        printf("|\n");
+    }
+}
+
+/**
+ * Vẽ hình thoi
+ * 
+ * @param size Kích thước hình thoi (nửa chiều cao)
+ */
+void veHinhThoi(int size) {
+    // Vẽ nửa trên
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            printf("  ");
+        }
+        for (int j = 0; j < 2 * i + 1; j++) {
+            printf("* ");
+        }
+        printf("\n");
+    }
+    
+    // Vẽ nửa dưới
+    for (int i = size - 2; i >= 0; i--) {
+        for (int j = 0; j < size - i - 1; j++) {
+            printf("  ");
+        }
+        for (int j = 0; j < 2 * i + 1; j++) {
+            printf("* ");
+        }
+        printf("\n");
+    }
+}
+
+
+/**
+ * Vẽ tam giác rỗng
+ * 
+ * @param height Chiều cao tam giác
+ */
+void veTamGiacRong(int height) {
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < height - i - 1; j++) {
+            printf(" ");
+        }
+        for (int j = 0; j < 2 * i + 1; j++) {
+            if (i == 0 || i == height - 1 || j == 0 || j == 2 * i) {
+                printf("*");
+            } else {
+                printf(" ");
+            }
+        }
+        printf("\n");
+    }
+}
+
+/**
+ * Tính tổng các thành phần trong mảng
+ * 
+ * @param arr Mảng cần tính tổng
+ * @param size Kích thước của mảng
+ * @return Tổng các phần tử trong mảng
+ */
+int tinhTongMang(int arr[], int size) {
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+        sum += arr[i];
+    }
+    return sum;
+}
+
+/**
+ * Đếm số nguyên âm trong mảng
+ * 
+ * @param arr Mảng cần đếm
+ * @param size Kích thước của mảng
+ * @return Số lượng số nguyên âm trong mảng
+ */
+int demSoNguyenAm(int arr[], int size) {
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        if (arr[i] < 0) {
+            count++;
+        }
+    }
+    return count;
+}
+
+/**
+ * Tìm số nhỏ nhất trong mảng
+ * 
+ * @param arr Mảng cần tìm
+ * @param size Kích thước của mảng
+ * @return Số nhỏ nhất trong mảng
+ */
+int timSoNhoNhat(int arr[], int size) {
+    if (size <= 0) return INT_MIN;
+    
+    int min = arr[0];
+    for (int i = 1; i < size; i++) {
+        if (arr[i] < min) {
+            min = arr[i];
+        }
+    }
+    return min;
+}
+
+/**
+ * Tìm số lớn nhất trong mảng
+ * 
+ * @param arr Mảng cần tìm
+ * @param size Kích thước của mảng
+ * @return Số lớn nhất trong mảng
+ */
+int timSoLonNhat(int arr[], int size) {
+    if (size <= 0) return INT_MAX;
+    
+    int max = arr[0];
+    for (int i = 1; i < size; i++) {
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+    }
+    return max;
+}
+
+/**
+ * Tìm số nhỏ thứ 2 trong mảng
+ * 
+ * @param arr Mảng cần tìm
+ * @param size Kích thước của mảng
+ * @return Số nhỏ thứ 2 trong mảng, hoặc INT_MIN nếu không tìm thấy
+ */
+int timSoNhoThu2(int arr[], int size) {
+    if (size < 2) return INT_MIN;
+    
+    int min1 = INT_MAX;
+    int min2 = INT_MAX;
+    
+    for (int i = 0; i < size; i++) {
+        if (arr[i] < min1) {
+            min2 = min1;
+            min1 = arr[i];
+        } else if (arr[i] < min2 && arr[i] != min1) {
+            min2 = arr[i];
+        }
+    }
+    
+    return (min2 == INT_MAX) ? INT_MIN : min2;
+}
+
+/**
+ * Tìm số lớn thứ 2 trong mảng
+ * 
+ * @param arr Mảng cần tìm
+ * @param size Kích thước của mảng
+ * @return Số lớn thứ 2 trong mảng, hoặc INT_MIN nếu không tìm thấy
+ */
+int timSoLonThu2(int arr[], int size) {
+    if (size < 2) return INT_MIN;
+    
+    int max1 = INT_MIN;
+    int max2 = INT_MIN;
+    
+    for (int i = 0; i < size; i++) {
+        if (arr[i] > max1) {
+            max2 = max1;
+            max1 = arr[i];
+        } else if (arr[i] > max2 && arr[i] != max1) {
+            max2 = arr[i];
+        }
+    }
+    
+    return (max2 == INT_MIN) ? INT_MIN : max2;
+}
+
+/**
+ * Đảo ngược số
+ * 
+ * @param num Số cần đảo ngược
+ * @return Số sau khi đảo ngược
+ */
+int daoNguocSo(int num) {
+    int reversed = 0;
+    while (num != 0) {
+        int digit = num % 10;
+        reversed = reversed * 10 + digit;
+        num /= 10;
+    }
+    return reversed;
+}
+
+/**
+ * Sắp xếp mảng tăng dần
+ * 
+ * @param arr Mảng cần sắp xếp
+ * @param size Kích thước của mảng
+ */
+void sapXepTangDan(int arr[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+/**
+ * Sắp xếp mảng giảm dần
+ * 
+ * @param arr Mảng cần sắp xếp
+ * @param size Kích thước của mảng
+ */
+void sapXepGiamDan(int arr[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (arr[j] < arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+/**
+ * Giảm số lượng phần tử trùng nhau trong mảng
+ * 
+ * @param arr Mảng cần xử lý
+ * @param size Con trỏ đến kích thước của mảng, sẽ được cập nhật sau khi xử lý
+ * @return Kích thước mới của mảng sau khi loại bỏ các phần tử trùng
+ */
+int giamPhanTuTrung(int arr[], int *size) {
+    if (*size <= 1) return *size;
+    
+    int newSize = 1;
+    
+    for (int i = 1; i < *size; i++) {
+        int j;
+        for (j = 0; j < newSize; j++) {
+            if (arr[i] == arr[j]) {
+                break;
+            }
+        }
+        
+        if (j == newSize) {
+            arr[newSize] = arr[i];
+            newSize++;
+        }
+    }
+    
+    *size = newSize;
+    return newSize;
+}
+
+/**
+ * Tìm số xuất hiện nhiều nhất trong mảng
+ * 
+ * @param arr Mảng cần tìm
+ * @param size Kích thước của mảng
+ * @param count Con trỏ để lưu số lần xuất hiện của số đó
+ * @return Số xuất hiện nhiều nhất
+ */
+int timSoXuatHienNhieuNhat(int arr[], int size, int *count) {
+    if (size <= 0) {
+        *count = 0;
+        return 0;
+    }
+    
+    int maxCount = 1;
+    int currentCount;
+    int mostFrequent = arr[0];
+    
+    for (int i = 0; i < size; i++) {
+        currentCount = 1;
+        for (int j = i + 1; j < size; j++) {
+            if (arr[i] == arr[j]) {
+                currentCount++;
+            }
+        }
+        
+        if (currentCount > maxCount) {
+            maxCount = currentCount;
+            mostFrequent = arr[i];
+        }
+    }
+    
+    *count = maxCount;
+    return mostFrequent;
+}
+
+/**
+ * Chuyển đổi giây thành giờ, phút, giây
+ * 
+ * @param totalSeconds Tổng số giây
+ * @param hours Con trỏ để lưu số giờ
+ * @param minutes Con trỏ để lưu số phút
+ * @param seconds Con trỏ để lưu số giây
+ */
+void tinhGioPhutGiay(int totalSeconds, int *hours, int *minutes, int *seconds) {
+    *hours = totalSeconds / 3600;
+    *minutes = (totalSeconds % 3600) / 60;
+    *seconds = totalSeconds % 60;
+}
+
+/**
+ * Bình phương các số lẻ trong mảng
+ * 
+ * @param arr Mảng cần xử lý
+ * @param size Kích thước của mảng
+ */
+void binhPhuongSoLe(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] % 2 != 0) {
+            arr[i] = arr[i] * arr[i];
+        }
+    }
+}
+
+/**
+ * Kiểm tra số nguyên tố
+ * 
+ * @param n Số cần kiểm tra
+ * @return true nếu là số nguyên tố, false nếu không phải
+ */
+bool kiemTraSoNguyenTo(int n) {
+    if (n <= 1) return false;
+    if (n <= 3) return true;
+    if (n % 2 == 0 || n % 3 == 0) return false;
+    
+    for (int i = 5; i * i <= n; i += 6) {
+        if (n % i == 0 || n % (i + 2) == 0) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+/**
+ * Tính tổng n số đầu tiên
+ * 
+ * @param n Số lượng số cần tính tổng
+ * @return Tổng n số đầu tiên
+ */
+int tinhTongNSo(int n) {
+    return n * (n + 1) / 2;
+}
+
+/**
+ * Kiểm tra số chính phương
+ * 
+ * @param n Số cần kiểm tra
+ * @return true nếu là số chính phương, false nếu không phải
+ */
+bool kiemTraSoChinhPhuong(int n) {
+    if (n < 0) return false;
+    
+    int sqrt_n = (int)sqrt(n);
+    return (sqrt_n * sqrt_n == n);
+}
+
+/**
+ * Kiểm tra số Fibonacci
+ * 
+ * @param n Số cần kiểm tra
+ * @return true nếu là số Fibonacci, false nếu không phải
+ */
+bool kiemTraSoFibonacci(int n) {
+    if (n < 0) return false;
+    if (n == 0 || n == 1) return true;
+    
+    int a = 0, b = 1, c = a + b;
+    while (c < n) {
+        a = b;
+        b = c;
+        c = a + b;
+    }
+    
+    return (c == n);
+}
+
+/**
+ * Tính diện tích hình chữ nhật
+ * 
+ * @param width Chiều rộng
+ * @param height Chiều cao
+ * @return Diện tích hình chữ nhật
+ */
+double tinhDienTichHinhChuNhat(double width, double height) {
+    return width * height;
+}
+
+/**
+ * Tính chu vi hình chữ nhật
+ * 
+ * @param width Chiều rộng
+ * @param height Chiều cao
+ * @return Chu vi hình chữ nhật
+ */
+double tinhChuViHinhChuNhat(double width, double height) {
+    return 2 * (width + height);
+}
+
+/**
+ * Tính diện tích tam giác
+ * 
+ * @param a Cạnh a
+ * @param b Cạnh b
+ * @param c Cạnh c
+ * @return Diện tích tam giác
+ */
+double tinhDienTichTamGiac(double a, double b, double c) {
+    double p = (a + b + c) / 2;
+    return sqrt(p * (p - a) * (p - b) * (p - c));
+}
+
+/**
+ * Tính chu vi tam giác
+ * 
+ * @param a Cạnh a
+ * @param b Cạnh b
+ * @param c Cạnh c
+ * @return Chu vi tam giác
+ */
+double tinhChuViTamGiac(double a, double b, double c) {
+    return a + b + c;
+}
+
+/**
+ * Tính diện tích hình tròn
+ * 
+ * @param radius Bán kính
+ * @return Diện tích hình tròn
+ */
+double tinhDienTichHinhTron(double radius) {
+    return M_PI * radius * radius;
+}
+
+/**
+ * Tính chu vi hình tròn
+ * 
+ * @param radius Bán kính
+ * @return Chu vi hình tròn
+ */
+double tinhChuViHinhTron(double radius) {
+    return 2 * M_PI * radius;
+}
+
+/**
+ * Sắp xếp mảng bằng thuật toán Insertion Sort
+ * 
+ * @param arr Mảng cần sắp xếp
+ * @param size Kích thước của mảng
+ */
+void insertionSort(int arr[], int size) {
+    for (int i = 1; i < size; i++) {
+        int key = arr[i];
+        int j = i - 1;
+        
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        
+        arr[j + 1] = key;
+    }
+}
+
+/**
+ * Sắp xếp mảng bằng thuật toán Bubble Sort
+ * 
+ * @param arr Mảng cần sắp xếp
+ * @param size Kích thước của mảng
+ */
+void bubbleSort(int arr[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+/**
+ * Sắp xếp mảng float giảm dần
+ * 
+ * @param arr Mảng cần sắp xếp
+ * @param size Kích thước của mảng
+ */
+void sapXepGiamDanFloat(float arr[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (arr[j] < arr[j + 1]) {
+                float temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+/**
+ * Sắp xếp mảng bằng thuật toán Selection Sort
+ * 
+ * @param arr Mảng cần sắp xếp
+ * @param size Kích thước của mảng
+ */
+void selectionSort(int arr[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        int min_idx = i;
+        
+        for (int j = i + 1; j < size; j++) {
+            if (arr[j] < arr[min_idx]) {
+                min_idx = j;
+            }
+        }
+        
+        if (min_idx != i) {
+            int temp = arr[i];
+            arr[i] = arr[min_idx];
+            arr[min_idx] = temp;
+        }
+    }
+}
+
+/**
+ * Tính độ dài chuỗi
+ * 
+ * @param str Chuỗi cần tính độ dài
+ * @return Độ dài của chuỗi
+ */
+int tinhDoDaiChuoi(const char *str) {
+    int length = 0;
+    while (str[length] != '\0') {
+        length++;
+    }
+    return length;
+}
+
+/**
+ * Đếm số chữ số trong chuỗi
+ * 
+ * @param str Chuỗi cần đếm
+ * @return Số lượng chữ số trong chuỗi
+ */
+int demSoChuSoTrongChuoi(const char *str) {
+    int count = 0;
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] >= '0' && str[i] <= '9') {
+            count++;
+        }
+    }
+    return count;
+}
+
+/**
+ * In số chẵn lớn nhất trong n số
+ * 
+ * @param arr Mảng các số
+ * @param size Kích thước của mảng
+ * @return Số chẵn lớn nhất, hoặc INT_MIN nếu không có số chẵn
+ */
+int inSoChanLonNhat(int arr[], int size) {
+    int maxEven = INT_MIN;
+    
+    for (int i = 0; i < size; i++) {
+        if (arr[i] % 2 == 0 && arr[i] > maxEven) {
+            maxEven = arr[i];
+        }
+    }
+    
+    return maxEven;
+}
+
+/**
+ * Tìm ước chung lớn nhất (GCD)
+ * 
+ * @param a Số thứ nhất
+ * @param b Số thứ hai
+ * @return Ước chung lớn nhất của a và b
+ */
+int timUCLN(int a, int b) {
+    a = abs(a);
+    b = abs(b);
+    
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    
+    return a;
+}
+
+/**
+ * Tìm bội chung nhỏ nhất (LCM)
+ * 
+ * @param a Số thứ nhất
+ * @param b Số thứ hai
+ * @return Bội chung nhỏ nhất của a và b
+ */
+int timBCNN(int a, int b) {
+    return (a * b) / timUCLN(a, b);
+}
+
+/**
+ * In số chẵn tại vị trí chẵn và sắp xếp
+ * 
+ * @param arr Mảng cần xử lý
+ * @param size Kích thước của mảng
+ */
+void inSoChanTaiViTriChanVaSort(int arr[], int size) {
+    // Tạo mảng mới để lưu các số chẵn tại vị trí chẵn
+    int evenCount = 0;
+    int* evenNumbers = (int*)malloc(size * sizeof(int));
+    
+    if (evenNumbers == NULL) {
+        printf("Lỗi cấp phát bộ nhớ\n");
+        return;
+    }
+    
+    // Lấy các số chẵn tại vị trí chẵn
+    for (int i = 0; i < size; i += 2) {
+        if (arr[i] % 2 == 0) {
+            evenNumbers[evenCount++] = arr[i];
+        }
+    }
+    
+    // Sắp xếp các số chẵn tăng dần
+    for (int i = 0; i < evenCount - 1; i++) {
+        for (int j = 0; j < evenCount - i - 1; j++) {
+            if (evenNumbers[j] > evenNumbers[j + 1]) {
+                int temp = evenNumbers[j];
+                evenNumbers[j] = evenNumbers[j + 1];
+                evenNumbers[j + 1] = temp;
+            }
+        }
+    }
+    
+    // In ra các số chẵn đã sắp xếp
+    printf("Các số chẵn tại vị trí chẵn (đã sắp xếp):\n");
+    for (int i = 0; i < evenCount; i++) {
+        printf("%d ", evenNumbers[i]);
+    }
+    printf("\n");
+    
+    free(evenNumbers); // Giải phóng bộ nhớ
+}
+
+/**
+ * Nếu là số lẻ, bình phương rồi cộng vào
+ * 
+ * @param arr Mảng cần xử lý
+ * @param size Kích thước của mảng
+ * @return Tổng bình phương các số lẻ
+ */
+int binhPhuongSoLeCongVao(int arr[], int size) {
+    int sum = 0;
+    
+    for (int i = 0; i < size; i++) {
+        if (arr[i] % 2 != 0) {
+            sum += arr[i] * arr[i];
+        }
+    }
+    
+    return sum;
+}
+
+/**
+ * In tích các chữ số của n
+ * 
+ * @param n Số cần tính tích
+ * @return Tích các chữ số
+ */
+int tichCacChuSo(int n) {
+    if (n == 0) return 0;
+    
+    int product = 1;
+    n = abs(n); // Lấy giá trị tuyệt đối để xử lý số âm
+    
+    while (n > 0) {
+        int digit = n % 10;
+        product *= digit;
+        n /= 10;
+    }
+    
+    return product;
+}
+
+/**
+ * Kiểm tra xem một số có phải là lũy thừa của 2 không
+ * 
+ * @param n Số cần kiểm tra
+ * @return true nếu là lũy thừa của 2, false nếu không phải
+ */
+bool kiemTraPowerOf2(int n) {
+    if (n <= 0) return false;
+    
+    // Một số là lũy thừa của 2 nếu chỉ có 1 bit 1 trong biểu diễn nhị phân
+    return (n & (n - 1)) == 0;
+}
+
+/**
+ * In ký tự viết hoa ở vị trí chẵn
+ * 
+ * @param str Chuỗi cần xử lý
+ */
+void inKyTuVietHoaOViTriChan(const char *str) {
+    printf("Các ký tự viết hoa ở vị trí chẵn: ");
+    
+    for (int i = 0; str[i] != '\0'; i += 2) {
+        if (isupper(str[i])) {
+            printf("%c ", str[i]);
+        }
+    }
+    
+    printf("\n");
+}
+
+/**
+ * In các ký tự là chữ cái
+ * 
+ * @param str Chuỗi cần xử lý
+ */
+void inCacKyTuLaChuCai(const char *str) {
+    printf("Các ký tự là chữ cái: ");
+    
+    for (int i =0; str[i] != '\0'; i++) {
+        if (isalpha(str[i])) {
+            printf("%c ", str[i]);
+        }
+    }
+    
+    printf("\n");
+}
+
+/**
+ * Kiểm tra số hoàn hảo (Perfect number)
+ * Số hoàn hảo là số có tổng các ước số (không kể chính nó) bằng chính nó
+ * 
+ * @param n Số cần kiểm tra
+ * @return true nếu là số hoàn hảo, false nếu không phải
+ */
+bool kiemTraPerfectNumber(int n) {
+    if (n <= 1) return false;
+    
+    int sum = 1; // Bắt đầu với 1 vì 1 luôn là ước số
+    
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) {
+            sum += i;
+            
+            // Nếu i khác với n/i thì cộng thêm n/i
+            if (i != n / i) {
+                sum += n / i;
+            }
+        }
+    }
+    
+    return sum == n;
+}
+
+/**
+ * Đếm chữ số trong chuỗi
+ * 
+ * @param str Chuỗi cần đếm
+ * @return Số lượng chữ số trong chuỗi
+ */
+int demChuSoTrongChuoi(const char *str) {
+    int count = 0;
+    
+    for (int i =0; str[i] != '\0'; i++) {
+        if (isdigit(str[i])) {
+            count++;
+        }
+    }
+    
+    return count;
+}
+
+/**
+ * Viết hoa 1/2 độ dài chuỗi
+ * 
+ * @param str Chuỗi cần xử lý
+ */
+void vietHoaNuaDoDaiChuoi(char *str) {
+    int length = strlen(str);
+    int halfLength = length / 2;
+    
+    for (int i = 0; i < halfLength; i++) {
+        str[i] = toupper(str[i]);
+    }
+}
+
+/**
+ * Kiểm tra tên hợp lệ
+ * Tên hợp lệ: bắt đầu bằng chữ cái, chỉ chứa chữ cái, số và dấu gạch dưới
+ * 
+ * @param name Tên cần kiểm tra
+ * @return true nếu tên hợp lệ, false nếu không hợp lệ
+ */
+bool kiemTraValidName(const char *name) {
+    if (!name || !isalpha(name[0])) {
+        return false;
+    }
+    
+    for (int i = 1; name[i] != '\0'; i++) {
+        if (!isalnum(name[i]) && name[i] != '_') {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+/**
+ * Tính trung bình các số dương trong mảng
+ * 
+ * @param arr Mảng cần tính
+ * @param size Kích thước của mảng
+ * @return Trung bình các số dương, hoặc 0 nếu không có số dương
+ */
+double trungBinhSoDuong(int arr[], int size) {
+    int sum = 0;
+    int count = 0;
+    
+    for (int i = 0; i < size; i++) {
+        if (arr[i] > 0) {
+            sum += arr[i];
+            count++;
+        }
+    }
+    
+    return count > 0 ? (double)sum / count : 0;
+}
+
+/**
+ * Tính diện tích hình tròn
+ * 
+ * @param radius Bán kính hình tròn
+ * @return Diện tích hình tròn
+ */
+double tinhDienTichHinhTron(double radius) {
+    return M_PI * radius * radius;
+}
+
+/**
+ * Kiểm tra số chính phương
+ * 
+ * @param n Số cần kiểm tra
+ * @return true nếu là số chính phương, false nếu không phải
+ */
+bool kiemTraSoChinhPhuong(int n) {
+    if (n < 0) return false;
+    
+    int sqrt_n = (int)sqrt(n);
+    return (sqrt_n * sqrt_n == n);
+}
+
+/**
+ * Xóa phần tử tại vị trí người dùng nhập
+ * 
+ * @param arr Mảng cần xử lý
+ * @param size Con trỏ đến kích thước của mảng, sẽ được cập nhật sau khi xử lý
+ * @param position Vị trí cần xóa (0-based)
+ * @return true nếu xóa thành công, false nếu vị trí không hợp lệ
+ */
+bool xoaPhanTuTaiViTri(int arr[], int *size, int position) {
+    if (position < 0 || position >= *size) {
+        return false;
+    }
+    
+    // Di chuyển các phần tử sau vị trí cần xóa lên trước một vị trí
+    for (int i = position; i < *size - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+    
+    (*size)--;
+    return true;
+}
+
+/**
+ * Chèn số bất kỳ vào mảng tại vị trí chỉ định
+ * 
+ * @param arr Mảng cần xử lý
+ * @param size Con trỏ đến kích thước của mảng, sẽ được cập nhật sau khi xử lý
+ * @param maxSize Kích thước tối đa của mảng
+ * @param value Giá trị cần chèn
+ * @param position Vị trí cần chèn (0-based)
+ * @return true nếu chèn thành công, false nếu vị trí không hợp lệ hoặc mảng đầy
+ */
+bool chenSoBatKy(int arr[], int *size, int maxSize, int value, int position) {
+    if (position < 0 || position > *size || *size >= maxSize) {
+        return false;
+    }
+    
+    // Di chuyển các phần tử từ vị trí chèn trở đi lên một vị trí
+    for (int i = *size; i > position; i--) {
+        arr[i] = arr[i - 1];
+    }
+    
+    arr[position] = value;
+    (*size)++;
+    return true;
+}
+
+/**
+ * Hoán đổi 2 vị trí trong mảng
+ * 
+ * @param arr Mảng cần xử lý
+ * @param pos1 Vị trí thứ nhất
+ * @param pos2 Vị trí thứ hai
+ * @param size Kích thước của mảng
+ * @return true nếu hoán đổi thành công, false nếu vị trí không hợp lệ
+ */
+bool swap2ViTri(int arr[], int pos1, int pos2, int size) {
+    if (pos1 < 0 || pos1 >= size || pos2 < 0 || pos2 >= size) {
+        return false;
+    }
+    
+    int temp = arr[pos1];
+    arr[pos1] = arr[pos2];
+    arr[pos2] = temp;
+    
+    return true;
+}
+
+/**
+ * Xóa phần tử tại vị trí nhập
+ * 
+ * @param arr Mảng cần xử lý
+ * @param size Con trỏ đến kích thước của mảng, sẽ được cập nhật sau khi xử lý
+ * @param position Vị trí cần xóa
+ * @return true nếu xóa thành công, false nếu vị trí không hợp lệ
+ */
+bool xoaPhanTuTaiViTri(int arr[], int *size, int position) {
+    if (position < 0 || position >= *size) {
+        return false;
+    }
+    
+    // Di chuyển các phần tử sau vị trí cần xóa lên trước một vị trí
+    for (int i = position; i < *size - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+    
+    (*size)--;
+    return true;
+}
+
+/**
+ * In ra giờ phút giây
+ * 
+ * @param seconds Tổng số giây
+ */
+void inGioPhutGiay(int seconds) {
+    int hours = seconds / 3600;
+    int minutes = (seconds % 3600) / 60;
+    int secs = seconds % 60;
+    
+    printf("%d giây = %d giờ %d phút %d giây\n", seconds, hours, minutes, secs);
+}
+
+/**
+ * Tính tổng số đầu và cuối của một số nguyên
+ * 
+ * @param n Số cần tính
+ * @return Tổng chữ số đầu và cuối
+ */
+int tongSoDauVaCuoi(int n) {
+    int lastDigit = n % 10;
+    
+    // Tìm chữ số đầu tiên
+    int firstDigit = n;
+    while (firstDigit >= 10) {
+        firstDigit /= 10;
+    }
+    
+    return firstDigit + lastDigit;
+}
+
+/**
+ * Kiểm tra xem một số có phải là lũy thừa của một số khác không
+ * 
+ * @param n Số cần kiểm tra
+ * @param base Cơ số
+ * @return true nếu n là lũy thừa của base, false nếu không phải
+ */
+bool kiemTraExponent(int n, int base) {
+    if (n <= 0 || base <= 0) return false;
+    if (base == 1) return (n == 1);
+    if (n == 1) return true;
+    
+    while (n > 1) {
+        if (n % base != 0) return false;
+        n /= base;
+    }
+    
+    return true;
+}
+
+/**
+ * Kiểm tra n%5==0 và đếm số lần xuất hiện trong mảng
+ * 
+ * @param arr Mảng cần kiểm tra
+ * @param size Kích thước của mảng
+ * @return Số lượng phần tử chia hết cho 5
+ */
+int demSoChiaHetCho5(int arr[], int size) {
+    int count = 0;
+    
+    for (int i = 0; i < size; i++) {
+        if (arr[i] % 5 == 0) {
+            count++;
+        }
+    }
+    
+    return count;
+}
+
+/**
+ * Chuyển đổi từ hệ nhị phân sang hệ bát phân
+ * 
+ * @param binary Chuỗi nhị phân
+ * @return Giá trị bát phân
+ */
+int binaryToOctal(const char *binary) {
+    // Chuyển nhị phân sang thập phân
+    int decimal = 0;
+    for (int i = 0; binary[i] != '\0'; i++) {
+        decimal = decimal * 2 + (binary[i] - '0');
+    }
+    
+    // Chuyển thập phân sang bát phân
+    int octal = 0;
+    int position = 1;
+    
+    while (decimal > 0) {
+        octal += (decimal % 8) * position;
+        decimal /= 8;
+        position *= 10;
+    }
+    
+    return octal;
+}
+
+/**
+ * Kiểm tra mảng có tăng dần không
+ * 
+ * @param arr Mảng cần kiểm tra
+ * @param size Kích thước của mảng
+ * @return true nếu mảng tăng dần, false nếu không
+ */
+bool kiemTraMangTangDan(int arr[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        if (arr[i] > arr[i + 1]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * Kiểm tra mảng có đối xứng không
+ * 
+ * @param arr Mảng cần kiểm tra
+ * @param size Kích thước của mảng
+ * @return true nếu mảng đối xứng, false nếu không
+ */
+bool kiemTraMangDoiXung(int arr[], int size) {
+    for (int i = 0; i < size / 2; i++) {
+        if (arr[i] != arr[size - 1 - i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * In ra số nguyên tố đầu tiên trong mảng
+ * 
+ * @param arr Mảng cần kiểm tra
+ * @param size Kích thước của mảng
+ * @return Số nguyên tố đầu tiên, hoặc -1 nếu không có số nguyên tố
+ */
+int inSoNguyenToDauTien(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        if (kiemTraSoNguyenTo(arr[i])) {
+            return arr[i];
+        }
+    }
+    return -1;
+}
+
+/**
+ * Kiểm tra số nguyên tố
+ * 
+ * @param n Số cần kiểm tra
+ * @return true nếu là số nguyên tố, false nếu không phải
+ */
+bool kiemTraSoNguyenTo(int n) {
+    if (n <= 1) return false;
+    if (n <= 3) return true;
+    if (n % 2 == 0 || n % 3 == 0) return false;
+    
+    for (int i = 5; i * i <= n; i += 6) {
+        if (n % i == 0 || n % (i + 2) == 0) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+/**
+ * Tính (-1)^(n+1) * x^n
+ * 
+ * @param x Cơ số
+ * @param n Số mũ
+ * @return Kết quả của biểu thức
+ */
+double tinhBieuThuc(double x, int n) {
+    double result = pow(x, n);
+    
+    if ((n + 1) % 2 == 0) {
+        return result;  // (-1)^(n+1) = 1 khi n+1 chẵn
+    } else {
+        return -result; // (-1)^(n+1) = -1 khi n+1 lẻ
+    }
+}
+
+/**
+ * Đảo ngược dãy số
+ * 
+ * @param arr Mảng cần đảo ngược
+ * @param size Kích thước của mảng
+ */
+void daoNguocDaySo(int arr[], int size) {
+    for (int i = 0; i < size / 2; i++) {
+        int temp = arr[i];
+        arr[i] = arr[size - 1 - i];
+        arr[size - 1 - i] = temp;
+    }
+}
+
+/**
+ * Bình phương số lẻ trong mảng
+ * 
+ * @param arr Mảng cần xử lý
+ * @param size Kích thước của mảng
+ */
+void binhPhuongSoLe(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] % 2 != 0) {
+            arr[i] = arr[i] * arr[i];
+        }
+    }
+}
+
+/**
+ * In vị trí có tổng bằng số nào đó
+ * 
+ * @param arr Mảng cần kiểm tra
+ * @param size Kích thước của mảng
+ * @param sum Tổng cần tìm
+ * @return true nếu tìm thấy, false nếu không
+ */
+bool inViTriCoTongBang(int arr[], int size, int sum) {
+    bool found = false;
+    
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = i + 1; j < size; j++) {
+            if (arr[i] + arr[j] == sum) {
+                printf("Vị trí %d và %d có tổng bằng %d\n", i, j, sum);
+                found = true;
+            }
+        }
+    }
+    
+    return found;
+}
+
+/**
+ * Tính diện tích hình chữ nhật
+ * 
+ * @param width Chiều rộng
+ * @param height Chiều cao
+ * @return Diện tích hình chữ nhật
+ */
+double tinhDienTichHinhChuNhat(double width, double height) {
+    return width * height;
+}
+
+/**
+ * Tính chu vi hình chữ nhật
+ * 
+ * @param width Chiều rộng
+ * @param height Chiều cao
+ * @return Chu vi hình chữ nhật
+ */
+double tinhChuViHinhChuNhat(double width, double height) {
+    return 2 * (width + height);
+}
+
+/**
+ * Tính diện tích tam giác
+ * 
+ * @param a Cạnh a
+ * @param b Cạnh b
+ * @param c Cạnh c
+ * @return Diện tích tam giác
+ */
+double tinhDienTichTamGiac(double a, double b, double c) {
+    double p = (a + b + c) / 2;
+    return sqrt(p * (p - a) * (p - b) * (p - c));
+}
+
+/**
+ * Tính chu vi tam giác
+ * 
+ * @param a Cạnh a
+ * @param b Cạnh b
+ * @param c Cạnh c
+ * @return Chu vi tam giác
+ */
+double tinhChuViTamGiac(double a, double b, double c) {
+    return a + b + c;
+}
+
+/**
+ * Tính diện tích hình tròn
+ * 
+ * @param radius Bán kính
+ * @return Diện tích hình tròn
+ */
+double tinhDienTichHinhTron(double radius) {
+    return M_PI * radius * radius;
+}
+
+/**
+ * Tính chu vi hình tròn
+ * 
+ * @param radius Bán kính
+ * @return Chu vi hình tròn
+ */
+double tinhChuViHinhTron(double radius) {
+    return 2 * M_PI * radius;
+}
+
+/**
+ * Tính giai thừa F1(n) = n!
+ * 
+ * @param n Số cần tính giai thừa
+ * @return Giai thừa của n
+ */
+long long tinhGiaiThua(int n) {
+    if (n < 0) return 0;
+    if (n == 0 || n == 1) return 1;
+    
+    long long result = 1;
+    for (int i = 2; i <= n; i++) {
+        result *= i;
+    }
+    
+    return result;
+}
+
+/**
+ * Tính tổng phân số F2(n) = 1 + 2 + ... + n
+ * 
+ * @param n Số hạng cuối cùng
+ * @return Tổng dãy số từ 1 đến n
+ */
+int tinhTongDaySo(int n) {
+    return n * (n + 1) / 2;
 }
