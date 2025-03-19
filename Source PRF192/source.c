@@ -755,6 +755,30 @@ int findWordIndex(const char* sentence, const char* word) {
 }
 
 /**
+ * @brief Đếm số lần xuất hiện của một ký tự trong chuỗi
+ * 
+ * Hàm này duyệt qua từng ký tự trong chuỗi và đếm số lần xuất hiện
+ * của ký tự được chỉ định.
+ * 
+ * @param str Chuỗi ký tự cần kiểm tra
+ * @param ch Ký tự cần đếm số lần xuất hiện
+ * @return int Số lần ký tự xuất hiện trong chuỗi
+ */
+int countCharOccurrences(char str[], char ch) {
+    int count = 0;  // Khởi tạo biến đếm
+    
+    // Duyệt qua từng ký tự trong chuỗi
+    for(int i = 0; i < strlen(str); i++) {
+        // Nếu ký tự hiện tại trùng với ký tự cần đếm
+        if(str[i] == ch) {
+            count++;  // Tăng biến đếm lên 1
+        }
+    }
+    
+    return count;  // Trả về tổng số lần xuất hiện
+}
+
+/**
  * Tìm số lần xuất hiện của một từ trong một chuỗi.
  *
  * @param sentence Chuỗi đầu vào
